@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>athlaet - countdown</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        margin: 0;
+        }
+
+        h1 {
+            color: rgb(73, 109, 141);
+            font-family: 'Gill Sans', sans-serif;
+            font-size: 80px;
+        }
+        p {
+            margin: 0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Countdown</h1>
+    <p class="countdown-time">Cargando...</p>
+
+    <script>
+      const timeLeftDisplay = document.getElementsByClassName('countdown-time')[0];
+      
+      const targetDate = new Date('June 3, 2026 23:59:59').getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference < 0) {
+          timeLeftDisplay.innerHTML = "tempo cumplido";
+          clearInterval(interval);
+          return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        timeLeftDisplay.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      const interval = setInterval(updateCountdown, 1000);
+
+      updateCountdown();
+    </script>
+  </body>
+</html>
